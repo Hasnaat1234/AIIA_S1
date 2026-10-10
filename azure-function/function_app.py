@@ -57,3 +57,4 @@ def predict(req: func.HttpRequest) -> func.HttpResponse:
 )
 def analyze_image(blob: func.InputStream) -> None:
     analyze_blob(blob.name, blob.read())
+
