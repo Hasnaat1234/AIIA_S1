@@ -38,10 +38,14 @@ DEFAULT_YOLO_WEIGHTS = "yolov8n.pt"
 _detector: Optional[Detector] = None
 
 
-def get_detector() -> Detector:
+def get_detector():
     global _detector
     if _detector is None:
-        _detector = Detector(os.environ.get("YOLO_WEIGHTS") or DEFAULT_YOLO_WEIGHTS)
+        if os.environ.get("DETECTOR", "yolo").lower() == "vision":
+            from vision_detection import VisionDetector
+            _detector = VisionDetector()
+        else:
+            _detector = Detector(os.environ.get("YOLO_WEIGHTS") or DEFAULT_YOLO_WEIGHTS)
     return _detector
 
 
